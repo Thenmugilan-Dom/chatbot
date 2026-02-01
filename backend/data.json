@@ -1,0 +1,116 @@
+{
+  "college": {
+    "name": "KPR College of Arts Science and Research",
+    "established_year": 2019,
+    "affiliation": "Bharathiar University, Coimbatore",
+    "location": {
+      "address": "Avinashi Road, Arasur, Coimbatore",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "postcode": "641407"
+    },
+    "contact": {
+      "phone": ["0422 2635678", "8870700678"],
+      "email": "info@kprcas.ac.in"
+    }
+  },
+  "academics": {
+    "schools": [
+      {
+        "name": "School of Management",
+        "programs": [
+          "BBA – Bachelor of Business Administration",
+          "BBA with Computer Application",
+          "BBA Logistics",
+          "BBA International Business"
+        ]
+      },
+      {
+        "name": "School of Commerce",
+        "programs": [
+          "B.Com – Bachelor of Commerce",
+          "B.Com – Bachelor of Commerce with Computer Application (CA)",
+          "B.Com – Professional Accounting (PA)",
+          "B.Com – Business Analytics (BA)",
+          "B.Com – Banking and Insurance (B&I)",
+          "B.Com – E-Commerce",
+          "B.Com – Information Technology (IT)"
+        ]
+      },
+      {
+        "name": "School of Computing Science",
+        "programs": [
+          "B.Sc – Computer Science",
+          "B.Sc – Information Technology (IT)",
+          "B.Sc – CS with Data Analytics",
+          "B.Sc – Artificial Intelligence & Machine Learning (AI & ML)",
+          "B.Sc – Computer Science with AI & Data Science (CS with AI & DS)",
+          "B.Sc – Data Science",
+          "B.Sc – Computer Science with Cloud Computing",
+          "B.Sc – Computer Science with Cyber Security",
+          "B.Sc – Computer Technology (CT)",
+          "BCA"
+        ]
+      },
+      {
+        "name": "School of Fashion",
+        "programs": [
+          "B.Sc – Costume Design and Fashion (CDF)"
+        ]
+      },
+      {
+        "name": "Postgraduate Programmes",
+        "programs": [
+          "M.Com",
+          "M.Sc – Data Science"
+        ]
+      }
+    ]
+  },
+  "admissions": {
+    "current_academic_year": "2026-2027",
+    "open": true,
+    "courses_offered": [
+      "BBA",
+      "BBA with CA",
+      "BBA Logistics",
+      "BBA International Business",
+      "B.Com",
+      "B.Com with CA",
+      "B.Com PA",
+      "B.Com BA",
+      "B.Com B&I",
+      "B.Com E-Commerce",
+      "B.Com IT",
+      "B.Sc Computer Science",
+      "B.Sc Information Technology",
+      "B.Sc CS with Data Analytics",
+      "B.Sc AI & ML",
+      "B.Sc CS with AI & DS",
+      "B.Sc Data Science",
+      "B.Sc CS with Cloud Computing",
+      "B.Sc Computer Technology",
+      "BCA",
+      "B.Sc Costume Design and Fashion",
+      "M.Com",
+      "M.Sc Data Science"
+    ]
+  },
+  "faqs": [
+    {
+      "id": 1,
+      "question": "What programs do you offer?",
+      "answer": "We offer a variety of undergraduate and postgraduate programs across Management, Commerce, Computing Science, and Fashion. Check our website for the complete list."
+    },
+    {
+      "id": 2,
+      "question": "How do I apply for admission?",
+      "answer": "You can apply for admission through our online portal. Visit our admissions page for more information and the application link."
+    },
+    {
+      "id": 3,
+      "question": "What is the college location?",
+      "answer": "Our college is located at Avinashi Road, Arasur, Coimbatore, Tamil Nadu, India."
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+.messages-list {
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.messages-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+
+.messages-header h2 {
+  margin: 0;
+  color: #2a2a2a;
+  font-size: 1.5em;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background: #e0e0e0;
+}
+
+.filter-btn.active {
+  background: #5B6FD8;
+  color: white;
+  border-color: #5B6FD8;
+}
+
+.messages-table {
+  overflow-x: auto;
+}
+
+.messages-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.messages-table thead {
+  background: #f9f9f9;
+}
+
+.messages-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #2a2a2a;
+  border-bottom: 2px solid #e0e0e0;
+  font-size: 0.9em;
+}
+
+.messages-table td {
+  padding: 15px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.9em;
+}
+
+.messages-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.message-text {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #666;
+}
+
+.status-select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85em;
+}
+
+.status-select.status-new {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+}
+
+.status-select.status-read {
+  background-color: #d1ecf1;
+  border-color: #17a2b8;
+}
+
+.status-select.status-resolved {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  background: #e53935;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85em;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #c62828;
+}
+
+.no-messages {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .messages-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-buttons {
+    width: 100%;
+  }
+
+  .messages-table table {
+    font-size: 0.8em;
+  }
+
+  .messages-table th,
+  .messages-table td {
+    padding: 8px;
+  }
+
+  .message-text {
+    max-width: 150px;
+  }
+}
