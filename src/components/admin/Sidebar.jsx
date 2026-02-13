@@ -15,6 +15,12 @@ function Sidebar({ activeTab, setActiveTab, onLogout }) {
           📧 Messages
         </button>
         <button
+          className={`nav-item ${activeTab === 'chatbot' ? 'active' : ''}`}
+          onClick={() => setActiveTab('chatbot')}
+        >
+          🤖 Chatbot Conversations
+        </button>
+        <button
           className={`nav-item ${activeTab === 'users' ? 'active' : ''}`}
           onClick={() => setActiveTab('users')}
         >

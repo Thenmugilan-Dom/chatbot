@@ -3,6 +3,58 @@ const authMiddleware = require('../middleware/auth');
 const supabase = require('../config/supabaseClient');
 const router = express.Router();
 
+// Get chatbot messages (protected) - Must be before /stats route
+router.get('/chatbot/all', authMiddleware, async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('chatbot_messages')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching chatbot messages:', error);
+    res.status(500).json({ error: 'Failed to fetch chatbot messages' });
+  }
+});
+
+// Save chatbot message (public)
+router.post('/chatbot/save', async (req, res) => {
+  try {
+    const { user_email, user_name, user_phone, message, message_type } = req.body;
+
+    if (!user_email || !message) {
+      return res.status(400).json({ error: 'Email and message required' });
+    }
+
+    const { data, error } = await supabase
+      .from('chatbot_messages')
+      .insert([
+        {
+          user_email,
+          user_name: user_name || 'Guest',
+          user_phone: user_phone || 'N/A',
+          message,
+          message_type: message_type || 'user'
+        }
+      ])
+      .select();
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.status(201).json(data[0]);
+  } catch (error) {
+    console.error('Error saving chatbot message:', error);
+    res.status(500).json({ error: 'Failed to save chatbot message' });
+  }
+});
+
 // Get all messages (protected)
 router.get('/', authMiddleware, async (req, res) => {
   try {
@@ -76,17 +128,23 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Email and message required' });
     }
 
-    // Create or update user
+    // Create or update user with proper error handling
     const { data: userData, error: userError } = await supabase
       .from('users')
       .upsert(
-        { email, name: name || 'Guest', phone: phone || 'N/A' },
+        {
+          email,
+          name: name || 'Guest',
+          phone: phone || 'N/A',
+          updated_at: new Date().toISOString()
+        },
         { onConflict: 'email' }
       )
       .select();
 
     if (userError) {
       console.error('Error upserting user:', userError);
+      return res.status(400).json({ error: 'Failed to save user data' });
     }
 
     // Create message

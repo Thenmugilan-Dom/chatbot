@@ -144,7 +144,7 @@ function UsersList() {
                     : 'N/A'
                   
                   return (
-                    <tr key={index} className="user-row">
+                    <tr key={user.id} className="user-row">
                       <td className="user-name">{user.name || 'N/A'}</td>
                       <td className="user-email">{user.email}</td>
                       <td className="user-phone">{user.phone || 'N/A'}</td>
@@ -158,7 +158,7 @@ function UsersList() {
                       </td>
                       <td className="user-actions">
                         <button
-                          onClick={() => handleDeleteUser(user._id)}
+                          onClick={() => handleDeleteUser(user.id)}
                           className="btn-delete-user"
                           title="Delete user"
                         >

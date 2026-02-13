@@ -11,6 +11,11 @@ function Home() {
       id: 1,
       text: 'Hello! 👋 Welcome to KPRCAS College. How can I help you today?',
       sender: 'bot'
+    },
+    {
+      id: 2,
+      text: "What's your name?",
+      sender: 'bot'
     }
   ])
   const [userEmail, setUserEmail] = useState('')
@@ -25,9 +30,9 @@ function Home() {
         sender: 'user'
       }])
       
-      // Send message to backend
-      saveMessage(userData, message)
-      
+      // Save user message to database
+      saveMessage(message)
+
       // Fetch college data and Q&A pairs
       try {
         const response = await fetch('http://localhost:5000/data')
@@ -42,16 +47,21 @@ function Home() {
             text: botResponse,
             sender: 'bot'
           }])
+          // Save bot response to database
+          saveBotMessage(botResponse)
         }, 500)
       } catch (error) {
         console.error('Failed to fetch college data:', error)
         // Fallback response if data fetch fails
         setTimeout(() => {
+          const fallbackMessage = 'Thank you for your message. Our support team will get back to you soon!'
           setChatMessages(prev => [...prev, {
             id: prev.length + 1,
-            text: 'Thank you for your message. Our support team will get back to you soon!',
+            text: fallbackMessage,
             sender: 'bot'
           }])
+          // Save bot response to database
+          saveBotMessage(fallbackMessage)
         }, 500)
       }
     }
@@ -111,25 +121,81 @@ function Home() {
       text: `Great! Thanks ${userInfo.name}. I have your contact information. How can I assist you further?`,
       sender: 'bot'
     }])
+    
+    // Save user to database
+    saveUserToDatabase(userInfo)
   }
 
-  const saveMessage = async (userInfo, message) => {
+  const saveUserToDatabase = async (userInfo) => {
     try {
-      await fetch('http://localhost:5000/api/messages', {
+      const response = await fetch('http://localhost:5000/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: userInfo.name,
+          email: userInfo.email,
+          phone: userInfo.number
+        })
+      })
+      
+      if (response.ok) {
+        console.log('User saved successfully')
+      } else {
+        console.error('Failed to save user')
+      }
+    } catch (error) {
+      console.error('Error saving user:', error)
+    }
+  }
+
+  const saveMessage = async (message) => {
+    try {
+      await fetch('http://localhost:5000/api/messages/chatbot/save', {
         method: 'POST',
         headers: {  
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
-          email: userInfo?.email || 'guest',
-          name: userInfo?.name || 'guest',
-          phone: userInfo?.number || 'guest',
-          message 
+          user_email: userData?.email || 'guest',
+          user_name: userData?.name || 'guest',
+          user_phone: userData?.number || 'N/A',
+          message,
+          message_type: 'user'
         })
       })
     } catch (error) {
       console.error('Failed to save message:', error)
     }
+  }
+
+  const saveBotMessage = async (message) => {
+    try {
+      await fetch('http://localhost:5000/api/messages/chatbot/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_email: userData?.email || 'guest',
+          user_name: userData?.name || 'guest',
+          user_phone: userData?.number || 'N/A',
+          message,
+          message_type: 'bot'
+        })
+      })
+    } catch (error) {
+      console.error('Failed to save bot message:', error)
+    }
+  }
+
+  const addMessageToChat = (text, sender) => {
+    setChatMessages(prev => [...prev, {
+      id: prev.length + 1,
+      text,
+      sender
+    }])
   }
 
   return (
@@ -161,6 +227,8 @@ function Home() {
             onEmailSubmit={handleEmailSubmit}
             showEmailPrompt={showEmailPrompt}
             onClose={() => setIsChatOpen(false)}
+            onAddMessage={addMessageToChat}
+            userData={userData}
           />
         )}
       </div>

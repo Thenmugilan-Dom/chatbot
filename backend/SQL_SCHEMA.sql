@@ -1,18 +1,3 @@
-# 📋 Complete SQL for Supabase Setup
-
-Copy and paste this entire SQL into your Supabase SQL Editor.
-
-## Instructions:
-1. Go to: https://wrpgexrclimttoodjhvk.supabase.co
-2. Click **SQL Editor** in left sidebar
-3. Click **New Query**
-4. Copy all SQL below
-5. Paste it into the editor
-6. Click **RUN** button
-
----
-
-```sql
 -- ============================================
 -- KPRCAS COLLEGE DATABASE SCHEMA
 -- ============================================
@@ -73,15 +58,33 @@ CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_faqs_id ON faqs(id);
 
 -- ============================================
--- 6. ENABLE ROW LEVEL SECURITY (RLS)
+-- 6. CREATE CHATBOT_MESSAGES TABLE
+-- ============================================
+CREATE TABLE IF NOT EXISTS chatbot_messages (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_email VARCHAR(255) NOT NULL,
+  user_name VARCHAR(255),
+  user_phone VARCHAR(20),
+  message TEXT NOT NULL,
+  message_type VARCHAR(50) DEFAULT 'user',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create indexes for chatbot messages
+CREATE INDEX IF NOT EXISTS idx_chatbot_messages_email ON chatbot_messages(user_email);
+CREATE INDEX IF NOT EXISTS idx_chatbot_messages_created_at ON chatbot_messages(created_at);
+
+-- ============================================
+-- 7. ENABLE ROW LEVEL SECURITY (RLS)
 -- ============================================
 ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE faqs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE chatbot_messages ENABLE ROW LEVEL SECURITY;
 
 -- ============================================
--- 7. INSERT SAMPLE Q&A DATA
+-- 8. INSERT SAMPLE Q&A DATA
 -- ============================================
 INSERT INTO faqs (question, answer) VALUES
 ('What programs do you offer?', 'We offer a variety of undergraduate and postgraduate programs across Management, Commerce, Computing Science, and Fashion. Check our website for the complete list.'),
@@ -96,54 +99,3 @@ INSERT INTO faqs (question, answer) VALUES
 -- ============================================
 -- DONE! Tables are ready to use
 -- ============================================
-```
-
----
-
-## ✅ What This SQL Creates:
-
-### Tables:
-1. **messages** - Stores chat messages from users
-2. **users** - Stores unique user information
-3. **faqs** - Stores Q&A pairs for the chatbot
-4. **admin_users** - Stores admin credentials
-
-### Indexes:
-- Quick lookups by email and status
-
-### Security:
-- Row Level Security enabled on all tables
-
-### Sample Data:
-- 8 initial Q&A pairs for the chatbot
-
----
-
-## 🔒 Important: Disable RLS for Development (If Needed)
-
-If you get permission errors, run this to disable RLS temporarily:
-
-```sql
-ALTER TABLE messages DISABLE ROW LEVEL SECURITY;
-ALTER TABLE users DISABLE ROW LEVEL SECURITY;
-ALTER TABLE faqs DISABLE ROW LEVEL SECURITY;
-ALTER TABLE admin_users DISABLE ROW LEVEL SECURITY;
-```
-
----
-
-## ✨ After Running the SQL:
-
-1. ✅ Go to **Table Editor** in Supabase
-2. ✅ Verify all 4 tables exist
-3. ✅ See 8 Q&A pairs in the faqs table
-4. ✅ Start your backend: `npm start`
-5. ✅ Test the connection!
-
----
-
-## Need Help?
-
-1. Check [SUPABASE_SETUP.md](SUPABASE_SETUP.md) for detailed instructions
-2. Check [QUICK_START.md](QUICK_START.md) for a quick overview
-3. Supabase Docs: https://supabase.com/docs

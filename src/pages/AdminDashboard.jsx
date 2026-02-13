@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import './AdminDashboard.css'
 import Sidebar from '../components/admin/Sidebar'
 import MessagesList from '../components/admin/MessagesList'
+import ChatbotMessagesList from '../components/admin/ChatbotMessagesList'
 import ContentManager from '../components/admin/ContentManager'
 import QAManager from '../components/admin/QAManager'
 import UsersList from '../components/admin/UsersList'
@@ -91,6 +92,7 @@ function AdminDashboard() {
 
         <div className="admin-content">
           {activeTab === 'messages' && <MessagesList />}
+          {activeTab === 'chatbot' && <ChatbotMessagesList />}
           {activeTab === 'content' && <ContentManager />}
           {activeTab === 'qa' && <QAManager />}
           {activeTab === 'users' && <UsersList />}
