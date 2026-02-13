@@ -112,5 +112,171 @@
       "question": "What is the college location?",
       "answer": "Our college is located at Avinashi Road, Arasur, Coimbatore, Tamil Nadu, India."
     }
-  ]
+  ],
+  "course_search_system": {
+    "enabled": true,
+    "case_sensitive": false,
+    "partial_match": true,
+    "smart_matching": true
+  },
+  "degree_groups": [
+    {
+      "degree_name": "B.Sc",
+      "full_form": "Bachelor of Science",
+      "keywords": ["bsc", "b.sc", "bachelor of science", "science degree"],
+      "display_order": 1,
+      "courses": [
+        {
+          "course_code": "BSCCS",
+          "course_name": "B.Sc Computer Science",
+          "department": "School of Computing Science",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Technology",
+          "keywords": ["computer science", "cs", "programming", "software"]
+        },
+        {
+          "course_code": "BSCAIML",
+          "course_name": "B.Sc Artificial Intelligence & Machine Learning",
+          "department": "School of Computing Science",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Technology",
+          "keywords": ["ai", "machine learning", "artificial intelligence"]
+        },
+        {
+          "course_code": "BSCDS",
+          "course_name": "B.Sc Data Science",
+          "department": "School of Computing Science",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Technology",
+          "keywords": ["data science", "analytics", "big data"]
+        },
+        {
+          "course_code": "BSCIT",
+          "course_name": "B.Sc Information Technology",
+          "department": "School of Computing Science",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Technology",
+          "keywords": ["it", "information technology", "networking"]
+        }
+      ]
+    },
+    {
+      "degree_name": "B.Com",
+      "full_form": "Bachelor of Commerce",
+      "keywords": ["bcom", "b.com", "bachelor of commerce", "commerce degree"],
+      "display_order": 2,
+      "courses": [
+        {
+          "course_code": "BCOMGEN",
+          "course_name": "B.Com General",
+          "department": "School of Commerce",
+          "duration": "3 Years",
+          "intake": 120,
+          "category": "Commerce",
+          "keywords": ["commerce", "accounts", "finance"]
+        },
+        {
+          "course_code": "BCOMPA",
+          "course_name": "B.Com Professional Accounting",
+          "department": "School of Commerce",
+          "duration": "3 Years",
+          "intake": 120,
+          "category": "Commerce",
+          "keywords": ["professional accounting", "ca", "accounting"]
+        },
+        {
+          "course_code": "BCOMBA",
+          "course_name": "B.Com Business Analytics",
+          "department": "School of Commerce",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Commerce",
+          "keywords": ["business analytics", "analytics", "data commerce"]
+        },
+        {
+          "course_code": "BCOMCA",
+          "course_name": "B.Com Computer Applications",
+          "department": "School of Commerce",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Commerce",
+          "keywords": ["computer applications", "commerce with computer"]
+        },
+        {
+          "course_code": "BCOMBI",
+          "course_name": "B.Com Banking & Insurance",
+          "department": "School of Commerce",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Commerce",
+          "keywords": ["banking", "insurance", "finance sector"]
+        }
+      ]
+    },
+    {
+      "degree_name": "BBA",
+      "full_form": "Bachelor of Business Administration",
+      "keywords": ["bba", "business administration", "management degree"],
+      "display_order": 3,
+      "courses": [
+        {
+          "course_code": "BBAGEN",
+          "course_name": "BBA General",
+          "department": "School of Management",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Management",
+          "keywords": ["management", "business studies"]
+        },
+        {
+          "course_code": "BBACA",
+          "course_name": "BBA Computer Applications",
+          "department": "School of Management",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Management",
+          "keywords": ["bba ca", "management with computer"]
+        },
+        {
+          "course_code": "BBALOG",
+          "course_name": "BBA Logistics",
+          "department": "School of Management",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Management",
+          "keywords": ["logistics", "supply chain"]
+        },
+        {
+          "course_code": "BBAIB",
+          "course_name": "BBA International Business",
+          "department": "School of Management",
+          "duration": "3 Years",
+          "intake": 60,
+          "category": "Management",
+          "keywords": ["international business", "global business"]
+        }
+      ]
+    }
+  ],
+  "response_templates": {
+    "degree_search_response": "Here are all {degree_name} courses offered at KPRCAS:",
+    "single_course_response": "Here are the details for {course_name}: Duration: {duration}, Department: {department}",
+    "no_match_response": "Sorry, no courses found. Please try B.Sc, B.Com, or BBA."
+  },
+  "integration_links": {
+    "apply_now": "https://kprcas.ac.in/admissions/",
+    "direct_application_form": "https://script.google.com/macros/s/AKfycbz8GLknnfQuy4PlHGetW1OcsUbFKm2gmYCY7wNZwRx-F5ql6e9UNeFfrhY6lOYR3gU/exec",
+    "contact_admission": "+91 94455 07103"
+  },
+  "ui_behavior": {
+    "display_type": "card_list",
+    "show_duration": true,
+    "show_department": true,
+    "show_apply_button": true,
+    "allow_filter_by_category": true
+  }
 }

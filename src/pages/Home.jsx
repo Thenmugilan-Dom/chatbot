@@ -18,7 +18,6 @@ function Home() {
       sender: 'bot'
     }
   ])
-  const [userEmail, setUserEmail] = useState('')
   const [userData, setUserData] = useState(null)
   const [showEmailPrompt, setShowEmailPrompt] = useState(true)
 
@@ -70,7 +69,18 @@ function Home() {
   const generateBotResponse = (userMessage, collegeData) => {
     const message = userMessage.toLowerCase()
     
-    // Check FAQs first
+    // Use course search utility
+    const searchResult = searchCourses(message, collegeData)
+
+    if (searchResult) {
+      if (searchResult.type === 'degree') {
+        return formatDegreeResponse(searchResult.data, collegeData)
+      } else if (searchResult.type === 'course') {
+        return formatCourseResponse(searchResult.data, collegeData)
+      }
+    }
+
+    // Check FAQs
     if (collegeData.faqs && collegeData.faqs.length > 0) {
       const faqMatch = collegeData.faqs.find(faq => 
         message.includes(faq.question.toLowerCase().split(' ')[0]) ||
@@ -83,23 +93,23 @@ function Home() {
     
     // Check for college info queries
     if (message.includes('name') || message.includes('college')) {
-      return `${collegeData.college.name} is established in ${collegeData.college.established_year} and is affiliated with ${collegeData.college.affiliation}.`
+      return `${collegeData.college.name} is established in ${collegeData.college.established_year} and is affiliated with ${collegeData.college.affiliation}. \n\nFor admissions, contact: ${collegeData.integration_links.contact_admission}`
     }
     
     // Check for contact queries
     if (message.includes('contact') || message.includes('phone') || message.includes('email')) {
-      return `You can reach us at: Email: ${collegeData.college.contact.email} or Phone: ${collegeData.college.contact.phone[0]}`
+      return `You can reach us at:\nEmail: ${collegeData.college.contact.email}\nPhone: ${collegeData.college.contact.phone.join(', ')}\n\nFor admission queries: ${collegeData.integration_links.contact_admission}`
     }
     
     // Check for programs queries
     if (message.includes('program') || message.includes('course') || message.includes('study')) {
-      const programs = collegeData.academics.schools.map(school => `${school.name}: ${school.programs.join(', ')}`).join('\n')
-      return `We offer programs across multiple schools:\n\n${programs}`
+      const programs = collegeData.academics.schools.map(school => `${school.name}: ${school.programs.join(', ')}`).join('\n\n')
+      return `We offer programs across multiple schools:\n\n${programs}\n\nWould you like to know more about a specific program? Apply here: ${collegeData.integration_links.apply_now}`
     }
     
     // Check for admissions queries
     if (message.includes('admission') || message.includes('apply')) {
-      return `Admissions for ${collegeData.admissions.current_academic_year} are currently ${collegeData.admissions.open ? 'open' : 'closed'}. We offer ${collegeData.admissions.courses_offered.length} different courses.`
+      return `Admissions for ${collegeData.admissions.current_academic_year} are currently ${collegeData.admissions.open ? 'open' : 'closed'}. We offer ${collegeData.admissions.courses_offered.length} different courses.\n\nApply now: ${collegeData.integration_links.direct_application_form}\n\nFor more info: ${collegeData.integration_links.contact_admission}`
     }
     
     // Check for location queries
@@ -109,12 +119,11 @@ function Home() {
     }
     
     // Default response
-    return 'Thank you for your message. Our support team will get back to you soon!'
+    return `Thank you for your message! I can help you with:\n• Course information (B.Sc, B.Com, BBA)\n• Admissions details\n• College location and contact\n• Academic programs\n\nOur admission team will also reach out to you. Contact: ${collegeData.integration_links.contact_admission}`
   }
 
   const handleEmailSubmit = (userInfo) => {
     setUserData(userInfo)
-    setUserEmail(userInfo.email)
     setShowEmailPrompt(false)
     setChatMessages(prev => [...prev, {
       id: prev.length + 1,
