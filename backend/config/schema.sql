@@ -37,14 +37,29 @@ CREATE TABLE admin_users (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
+-- Create chatbot_messages table
+CREATE TABLE chatbot_messages (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_email VARCHAR(255) NOT NULL,
+  user_name VARCHAR(255),
+  user_phone VARCHAR(20),
+  message TEXT NOT NULL,
+  message_type VARCHAR(50) DEFAULT 'user',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
 -- Create indexes for better query performance
 CREATE INDEX idx_messages_email ON messages(email);
 CREATE INDEX idx_messages_status ON messages(status);
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_faqs_id ON faqs(id);
+CREATE INDEX idx_chatbot_messages_email ON chatbot_messages(user_email);
+CREATE INDEX idx_chatbot_messages_created ON chatbot_messages(created_at);
 
 -- Enable RLS (Row Level Security) - Optional but recommended
 ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE faqs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE chatbot_messages ENABLE ROW LEVEL SECURITY;
